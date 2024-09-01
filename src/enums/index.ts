@@ -1,0 +1,7 @@
+export enum CATEGORIES {
+  CINEMA = "CINEMA",
+  NEWS = "NEWS",
+  MUSIC = "MUSIC",
+  TECHNOLOGY = "TECHNOLOGY",
+  SPORTS = "SPORTS",
+}

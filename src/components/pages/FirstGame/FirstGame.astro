@@ -1,0 +1,150 @@
+---
+import Column from "../../Column.astro";
+import Modal from "../../Modal.astro";
+import { QUESTIONS } from "../../../shared/constants";
+---
+
+<section
+  class="grid grid-cols-5 h-screen justify-center items-center gap-4 text-white px-20"
+>
+  <Column title="Cine/Series" questions={QUESTIONS.CINEMA} />
+  <Column title="Noticias" questions={QUESTIONS.NEWS} />
+  <Column title="Música" questions={QUESTIONS.MUSIC} />
+  <Column title="Tecnología" questions={QUESTIONS.TECHNOLOGY} />
+  <Column title="Deporte" questions={QUESTIONS.SPORTS} />
+
+  <Modal />
+</section>
+
+<style>
+  ::view-transition-old(modal),
+  ::view-transition-new(modal) {
+    animation-duration: 0.2s;
+  }
+
+  ::view-transition-old(modal) {
+    opacity: 0;
+  }
+
+  ::view-transition-new(modal) {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const modal = document.getElementById("dialog");
+  const modalText = document.querySelector("dialog").querySelector("span");
+  const buttons = document.querySelectorAll("button");
+
+  const localstorage = localStorage.getItem("questions");
+
+  let questionId = null;
+
+  let questionArr: Array<{
+    id: number;
+    disabled: boolean;
+  }> = [];
+
+  if (typeof window !== "undefined") {
+    // check if the questions are stored in local storage
+    if (localstorage) questionArr = JSON.parse(localstorage);
+
+    if (questionArr.length > 0) {
+      // disable the buttons
+      questionArr.forEach((question) => {
+        const button = document.getElementById(question.id);
+        button.disabled = true;
+        button.classList.add("opacity-50");
+      });
+    }
+
+    // toggle the modal
+    buttons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const buttonTarget = event.target as HTMLButtonElement;
+
+        // set the modal text
+        const question = JSON.parse(event.target.dataset.question);
+        modalText.innerText = question.question;
+
+        // disable the button
+        buttonTarget.disabled = true;
+        buttonTarget.classList.add("opacity-50");
+
+        // save the question in local storage
+        questionArr.push({
+          id: question.id,
+          disabled: true,
+        });
+        localStorage.setItem("questions", JSON.stringify(questionArr));
+
+        // show the modal
+        if (!document.startViewTransition) {
+          openModal();
+          return;
+        }
+
+        buttonTarget.style.viewTransitionName = "modal";
+        // Prevent the incresing size of the text button while doing transition
+        buttonTarget.innerText = "";
+
+        const transition = document.startViewTransition(() => {
+          buttonTarget.style.viewTransitionName = null;
+          modal.style.viewTransitionName = "modal";
+          questionId = question.id;
+          openModal();
+        });
+
+        transition.finished.finally(() => {
+          modal.style.viewTransitionName = null;
+        });
+      });
+    });
+
+    // close the modal
+    modal.addEventListener("click", () => {
+      if (!document.startViewTransition) {
+        closeModal();
+        return;
+      }
+
+      let button;
+      buttons.forEach((element) => {
+        if (element.id === questionId.toString()) button = element;
+      });
+
+      const questionData = JSON.parse(button.dataset.question);
+
+      modal.style.viewTransitionName = "modal";
+
+      button.innerText = questionData.position;
+      modalText.innerText = "";
+
+      const transition = document.startViewTransition(() => {
+        modal.style.viewTransitionName = null;
+        button.style.viewTransitionName = "modal";
+        closeModal();
+      });
+
+      transition.finished.finally(() => {
+        button.style.viewTransitionName = null;
+      });
+    });
+  }
+
+  function openModal() {
+    modal.classList.add("open");
+    modal.classList.add("flex");
+    modal.classList.remove("close");
+    modal.classList.remove("hidden");
+    modal.showModal();
+  }
+
+  function closeModal() {
+    modal.classList.remove("open");
+    modal.classList.remove("flex");
+    modal.classList.add("close");
+    modal.classList.add("hidden");
+    modal.close();
+  }
+</script>

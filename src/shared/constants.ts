@@ -1,4 +1,6 @@
-const CINEMA = [
+import type { Question, Questions } from "../types";
+
+const CINEMA: Question[] = [
   {
     id: 1,
     question:
@@ -27,7 +29,7 @@ const CINEMA = [
   },
 ];
 
-const NEWS = [
+const NEWS: Question[] = [
   {
     id: 5,
     question:
@@ -57,7 +59,7 @@ const NEWS = [
   },
 ];
 
-const MUSIC = [
+const MUSIC: Question[] = [
   {
     id: 9,
     question:
@@ -81,13 +83,13 @@ const MUSIC = [
   },
   {
     id: 12,
-    question: "¿Con quien se casó el rey Charles en 2005?",
+    question: "¿Cuál fue el mayor éxito del 2002?",
     answer: "Madrid",
     position: 4,
   },
 ];
 
-const TECHNOLOGY = [
+const TECHNOLOGY: Question[] = [
   {
     id: 13,
     question: "¿Cuánto pagó Google por Youtube en 2006?",
@@ -114,7 +116,7 @@ const TECHNOLOGY = [
   },
 ];
 
-const SPORTS = [
+const SPORTS: Question[] = [
   {
     id: 17,
     question: "¿Qué país ganó la Eurocopa 2004?",
@@ -144,7 +146,7 @@ const SPORTS = [
   },
 ];
 
-export const QUESTIONS = {
+export const QUESTIONS: Questions = {
   CINEMA: CINEMA,
   NEWS: NEWS,
   MUSIC: MUSIC,

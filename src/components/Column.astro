@@ -1,0 +1,23 @@
+---
+interface Props {
+  questions: Question[];
+  title: string;
+}
+
+const { title, questions } = Astro.props;
+---
+
+<div class="flex flex-col items-center justify-center gap-5 bg-[#2D3E89] p-5">
+  <p class="text-2xl">{title}</p>
+  {
+    questions.map((question) => (
+      <button
+        id={question.id}
+        class="flex flex-col items-center justify-center cursor-pointer w-full h-40 bg-[#4F6BE1] rounded-md text-2xl transition-all"
+        data-question={JSON.stringify(question)}
+      >
+        {question.position}
+      </button>
+    ))
+  }
+</div>
