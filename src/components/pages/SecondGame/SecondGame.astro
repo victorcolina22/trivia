@@ -1,0 +1,75 @@
+---
+import CenterContent from "../../CenterContent.astro";
+import {
+  DISNEY_ANSWERS,
+  MOST_MEDALS_OLYMPIC_VOLLEY,
+  MOST_POPULAR_BOYBANDS,
+  MOST_VISITED_COUNTRIES,
+  TEXT,
+} from "../../../constants.ts";
+
+const ANSWERS = {
+  1: DISNEY_ANSWERS,
+  2: MOST_MEDALS_OLYMPIC_VOLLEY,
+  3: MOST_VISITED_COUNTRIES,
+  4: MOST_POPULAR_BOYBANDS,
+};
+
+const board = Astro.params.board;
+---
+
+<CenterContent class="flex flex-col items-center justify-center h-screen">
+  <h2 class="text-5xl text-white text-balance text-center">
+    {TEXT[board]}
+  </h2>
+
+  <article
+    class="grid grid-cols-2 gap-5 border-2 border-[#9B84F8] rounded-md p-5 mt-10"
+  >
+    {
+      ANSWERS[board].map(({ answer }) => (
+        <div
+          id="container"
+          class="grid place-content-center w-[600px] h-[100px] shadow-lg shadow-[#23126A] border-2 border-purple bg-radial-gradient rounded-md cursor-pointer transition-all"
+        >
+          <span id="container-text" class="text-5xl text-purple-dark hidden">
+            {answer}
+          </span>
+        </div>
+      ))
+    }
+  </article>
+</CenterContent>
+
+<script>
+  if (typeof window !== "undefined") {
+    const answers = document.querySelectorAll("#container");
+    const answerText = document.querySelectorAll("#container-text");
+    const board = window.location.pathname.split("/").at(-1);
+
+    answers.forEach((answer, index) => {
+      answer.addEventListener("click", (event) => {
+        const answerTarget = event.target;
+        answerTarget.classList.remove("bg-radial-gradient");
+        answerTarget.classList.add("bg-purple-light");
+
+        answerText[index].classList.remove("hidden");
+        answerText[index].classList.add("inline");
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") {
+        if (+board === 4) return;
+        window.location.replace(`/secondgame/board/${Number(board) + 1}`);
+      }
+      if (e.key === "ArrowLeft") {
+        if (+board === 1) {
+          window.location.replace("/");
+          return;
+        }
+        window.location.replace(`/secondgame/board/${Number(board) - 1}`);
+      }
+    });
+  }
+</script>

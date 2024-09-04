@@ -3,6 +3,7 @@ import { ViewTransitions } from "astro:transitions";
 
 interface Props {
   title: string;
+  backgroundColor?: string;
 }
 
 const { title } = Astro.props;
@@ -19,17 +20,18 @@ const { title } = Astro.props;
     <title>{title}</title>
     <ViewTransitions />
   </head>
-  <body>
+  <body class={Astro.props.class}>
     <slot />
   </body>
 </html>
 <style is:global>
-  * {
-    boxsize: border-box;
+  @font-face {
+    font-family: "Baloo Bhaijaan";
+    src: url("/BalooBhaijaan-Regular.ttf") format("truetype");
   }
 
-  html,
-  body {
-    background-color: #3b55cd;
+  * {
+    boxsize: border-box;
+    font-family: "Baloo Bhaijaan";
   }
 </style>

@@ -1,12 +1,11 @@
 ---
+import CenterContent from "../../CenterContent.astro";
 import Column from "../../Column.astro";
 import Modal from "../../Modal.astro";
 import { QUESTIONS } from "../../../shared/constants";
 ---
 
-<section
-  class="grid grid-cols-5 h-screen justify-center items-center gap-4 text-white px-20"
->
+<CenterContent class="grid grid-cols-5 gap-4 text-white px-20">
   <Column title="Cine/Series" questions={QUESTIONS.CINEMA} />
   <Column title="Noticias" questions={QUESTIONS.NEWS} />
   <Column title="Música" questions={QUESTIONS.MUSIC} />
@@ -14,7 +13,7 @@ import { QUESTIONS } from "../../../shared/constants";
   <Column title="Deporte" questions={QUESTIONS.SPORTS} />
 
   <Modal />
-</section>
+</CenterContent>
 
 <style>
   ::view-transition-old(modal),
@@ -32,22 +31,22 @@ import { QUESTIONS } from "../../../shared/constants";
 </style>
 
 <script>
-  const modal = document.getElementById("dialog");
-  const modalText = document.querySelector("dialog").querySelector("span");
-  const buttons = document.querySelectorAll("button");
-
-  const localstorage = localStorage.getItem("questions");
-
-  let questionId = null;
-
-  let questionArr: Array<{
-    id: number;
-    disabled: boolean;
-  }> = [];
-
   if (typeof window !== "undefined") {
+    const modal = document.getElementById("dialog");
+    const modalText = document.querySelector("dialog").querySelector("span");
+    const buttons = document.querySelectorAll("button");
+
+    // const localstorage = localStorage.getItem("questions");
+
+    let questionId = null;
+
+    let questionArr: Array<{
+      id: number;
+      disabled: boolean;
+    }> = [];
+
     // check if the questions are stored in local storage
-    if (localstorage) questionArr = JSON.parse(localstorage);
+    // if (localstorage) questionArr = JSON.parse(localstorage);
 
     if (questionArr.length > 0) {
       // disable the buttons
@@ -72,11 +71,11 @@ import { QUESTIONS } from "../../../shared/constants";
         buttonTarget.classList.add("opacity-50");
 
         // save the question in local storage
-        questionArr.push({
-          id: question.id,
-          disabled: true,
-        });
-        localStorage.setItem("questions", JSON.stringify(questionArr));
+        // questionArr.push({
+        //   id: question.id,
+        //   disabled: true,
+        // });
+        // localStorage.setItem("questions", JSON.stringify(questionArr));
 
         // show the modal
         if (!document.startViewTransition) {
@@ -130,21 +129,28 @@ import { QUESTIONS } from "../../../shared/constants";
         button.style.viewTransitionName = null;
       });
     });
-  }
 
-  function openModal() {
-    modal.classList.add("open");
-    modal.classList.add("flex");
-    modal.classList.remove("close");
-    modal.classList.remove("hidden");
-    modal.showModal();
-  }
+    // navigation with arrow keys
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        window.location.replace("/");
+      }
+    });
 
-  function closeModal() {
-    modal.classList.remove("open");
-    modal.classList.remove("flex");
-    modal.classList.add("close");
-    modal.classList.add("hidden");
-    modal.close();
+    function openModal() {
+      modal.classList.add("open");
+      modal.classList.add("flex");
+      modal.classList.remove("close");
+      modal.classList.remove("hidden");
+      modal.showModal();
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.classList.remove("flex");
+      modal.classList.add("close");
+      modal.classList.add("hidden");
+      modal.close();
+    }
   }
 </script>
