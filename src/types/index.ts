@@ -1,7 +1,7 @@
 import type { CATEGORIES } from "../enums";
 
 export type Question = {
-  id: number;
+  id: string;
   question: string;
   answer: string;
   position: number;

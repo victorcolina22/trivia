@@ -1,42 +1,52 @@
 [
   {
     "id": 11,
-    "answer": "Unión Soviética"
+    "answer": "Unión Soviética",
+    "position": 1
   },
   {
     "id": 12,
-    "answer": "China"
+    "answer": "USA",
+    "position": 6
   },
   {
     "id": 13,
-    "answer": "Cuba"
+    "answer": "China",
+    "position": 2
   },
   {
     "id": 14,
-    "answer": "Japón"
+    "answer": "Italia",
+    "position": 7
   },
   {
     "id": 15,
-    "answer": "Brasil"
+    "answer": "Cuba",
+    "position": 3
   },
   {
     "id": 16,
-    "answer": "USA"
+    "answer": "Rusia",
+    "position": 8
   },
   {
     "id": 17,
-    "answer": "Italia"
+    "answer": "Japón",
+    "position": 4
   },
   {
     "id": 18,
-    "answer": "Rusia"
+    "answer": "Serbia",
+    "position": 9
   },
   {
     "id": 19,
-    "answer": "Serbia"
+    "answer": "Brasil",
+    "position": 5
   },
   {
     "id": 20,
-    "answer": "Alemania"
+    "answer": "Alemania",
+    "position": 10
   }
 ]

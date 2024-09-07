@@ -6,11 +6,17 @@ import { QUESTIONS } from "../../../shared/constants";
 ---
 
 <CenterContent class="grid grid-cols-5 gap-4 text-white px-20">
-  <Column title="Cine/Series" questions={QUESTIONS.CINEMA} />
-  <Column title="Noticias" questions={QUESTIONS.NEWS} />
-  <Column title="Música" questions={QUESTIONS.MUSIC} />
-  <Column title="Tecnología" questions={QUESTIONS.TECHNOLOGY} />
-  <Column title="Deporte" questions={QUESTIONS.SPORTS} />
+  <Column
+    title="Cine/Series"
+    questions={QUESTIONS[Astro.params.board].CINEMA}
+  />
+  <Column title="Noticias" questions={QUESTIONS[Astro.params.board].NEWS} />
+  <Column title="Música" questions={QUESTIONS[Astro.params.board].MUSIC} />
+  <Column
+    title="Tecnología"
+    questions={QUESTIONS[Astro.params.board].TECHNOLOGY}
+  />
+  <Column title="Deporte" questions={QUESTIONS[Astro.params.board].SPORTS} />
 
   <Modal />
 </CenterContent>
@@ -31,10 +37,14 @@ import { QUESTIONS } from "../../../shared/constants";
 </style>
 
 <script>
+  import { getBoardParam } from "../../../shared/utils/getBoardParam";
+  import { arrowKeyNavigation } from "../../../shared/utils/arrowKeyNavigation";
+
   if (typeof window !== "undefined") {
     const modal = document.getElementById("dialog");
     const modalText = document.querySelector("dialog").querySelector("span");
     const buttons = document.querySelectorAll("button");
+    const board = getBoardParam();
 
     // const localstorage = localStorage.getItem("questions");
 
@@ -131,11 +141,7 @@ import { QUESTIONS } from "../../../shared/constants";
     });
 
     // navigation with arrow keys
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") {
-        window.location.replace("/");
-      }
-    });
+    arrowKeyNavigation("firstgame", board, 1, 2);
 
     function openModal() {
       modal.classList.add("open");
