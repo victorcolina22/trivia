@@ -127,8 +127,8 @@ const SPORTS: Question[] = [
   {
     id: uuidv4(),
     question:
-      "¿Qué país ganó la medalla de oro en voleibol femenino en los Juegos Olímpicos de Sydney de 2000?",
-    answer: "Berlin",
+      "¿En cuál deporte chile tiene mayor cantidad de medallas olímpicas?",
+    answer: "Tennis",
     position: 2,
   },
   {
