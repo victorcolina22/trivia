@@ -10,7 +10,7 @@ export const MOST_POPULAR_BOYBANDS = mostPopularBoybands;
 
 export const TEXT = {
   1: "Películas animadas de Disney que más dinero generaron en el mundo.",
-  2: "Países con el medallero olímpico histórico de voleibol en los juegos olímpicos.",
+  2: "Los 10 libros más vendidos de la historia.",
   3: "Países más visitados del mundo según la OMT.",
   4: "Boybands más populares de todos los tiempos.",
 };
